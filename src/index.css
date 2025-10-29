@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Tachos Design System - Moda vintage con propósito */
+    
+    /* Brand Colors */
+    --negro: 0 0% 7%;           /* #111111 - Negro profundo */
+    --verde: 160 59% 30%;       /* #1F7A5A - Verde consciente */
+    --dorado: 42 100% 45%;      /* #E5A100 - Dorado vintage */
+    --marfil: 60 20% 98%;       /* #FAFAF7 - Marfil cálido */
+    --blanco: 0 0% 100%;        /* #FFFFFF - Blanco puro */
+    
+    /* Semantic tokens */
+    --background: var(--marfil);
+    --foreground: var(--negro);
+
+    --card: var(--blanco);
+    --card-foreground: var(--negro);
+
+    --popover: var(--blanco);
+    --popover-foreground: var(--negro);
+
+    --primary: var(--verde);
+    --primary-foreground: var(--blanco);
+
+    --secondary: var(--dorado);
+    --secondary-foreground: var(--negro);
+
+    --muted: 60 15% 95%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: var(--dorado);
+    --accent-foreground: var(--negro);
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: var(--blanco);
+
+    --border: 60 10% 90%;
+    --input: 60 10% 92%;
+    --ring: var(--verde);
+
+    --radius: 0.75rem;
+
+    /* Shadows */
+    --shadow-soft: 0 2px 8px hsl(var(--negro) / 0.08);
+    --shadow-medium: 0 4px 16px hsl(var(--negro) / 0.12);
+    --shadow-strong: 0 8px 24px hsl(var(--negro) / 0.16);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: var(--negro);
+    --foreground: var(--marfil);
+
+    --card: 0 0% 12%;
+    --card-foreground: var(--marfil);
+
+    --popover: 0 0% 10%;
+    --popover-foreground: var(--marfil);
+
+    --primary: var(--verde);
+    --primary-foreground: var(--blanco);
+
+    --secondary: var(--dorado);
+    --secondary-foreground: var(--negro);
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: var(--dorado);
+    --accent-foreground: var(--negro);
+
+    --border: 0 0% 20%;
+    --input: 0 0% 18%;
+    --ring: var(--verde);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .shadow-medium {
+    box-shadow: var(--shadow-medium);
+  }
+  
+  .shadow-strong {
+    box-shadow: var(--shadow-strong);
+  }
+}
