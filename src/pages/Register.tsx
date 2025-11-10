@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,23 +6,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/context/AuthContext";
 
 const Register = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    username: "",
-    city: "",
-    state: "",
-    email: "",
-    password: "",
-    acceptTerms: false,
-  });
+  const { register } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if (!formData.acceptTerms) {
+    const formData = new FormData(e.currentTarget);
+
+    const data = {
+      username: formData.get("username") as string,
+      city: formData.get("city") as string,
+      state: formData.get("state") as string,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      acceptTerms: formData.get("terms") === "on",
+    };
+
+    if (!data.acceptTerms) {
       toast({
         title: "Error",
         description: "Debes aceptar los Términos y condiciones",
@@ -32,12 +35,15 @@ const Register = () => {
       return;
     }
 
+    // Registrar y loguear
+    register(data);
+    
     toast({
       title: "¡Cuenta creada!",
-      description: "Tu cuenta ha sido creada exitosamente",
+      description: `Bienvenido, ${data.username}!`,
     });
     
-    navigate("/");
+    navigate("/perfil"); // Redirige al perfil
   };
 
   return (
@@ -50,72 +56,33 @@ const Register = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="username">Nombre de usuario</Label>
-              <Input
-                id="username"
-                type="text"
-                value={formData.username}
-                onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                required
-              />
+              <Input id="username" name="username" type="text" required />
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="city">Ciudad</Label>
-                <Input
-                  id="city"
-                  type="text"
-                  value={formData.city}
-                  onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                  required
-                />
+                <Input id="city" name="city" type="text" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="state">Estado</Label>
-                <Input
-                  id="state"
-                  type="text"
-                  value={formData.state}
-                  onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                  required
-                />
+                <Input id="state" name="state" type="text" required />
               </div>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="email">Correo electrónico</Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-              />
+              <Input id="email" name="email" type="email" required />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="password">Contraseña</Label>
-              <Input
-                id="password"
-                type="password"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                required
-              />
+              <Input id="password" name="password" type="password" required />
             </div>
 
             <div className="flex items-start gap-2">
-              <Checkbox
-                id="terms"
-                checked={formData.acceptTerms}
-                onCheckedChange={(checked) => 
-                  setFormData({ ...formData, acceptTerms: checked as boolean })
-                }
-              />
-              <label
-                htmlFor="terms"
-                className="text-sm leading-tight text-foreground cursor-pointer"
-              >
+              <Checkbox id="terms" name="terms" required />
+              <label htmlFor="terms" className="text-sm leading-tight text-foreground cursor-pointer">
                 Acepto los Términos y condiciones
               </label>
             </div>

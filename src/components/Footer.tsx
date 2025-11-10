@@ -14,7 +14,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-3">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/tachos.tienda/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-muted transition-smooth hover:bg-verde hover:text-blanco"
@@ -84,7 +84,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="https://instagram.com" className="text-muted-foreground transition-smooth hover:text-verde">
+                <a href="https://www.instagram.com/tachos.tienda/" className="text-muted-foreground transition-smooth hover:text-verde">
                   Contacto
                 </a>
               </li>

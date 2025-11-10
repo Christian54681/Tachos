@@ -1,14 +1,16 @@
-import { Search, Heart, ShoppingCart } from "lucide-react";
+import { Search, Heart, ShoppingCart, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 const Header = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
-  
+  const { user, logout } = useAuth();
+
   const categories = ["Todo", "Mujeres", "Hombres", "Niños", "Accesorios"];
 
   useEffect(() => {
@@ -30,6 +32,11 @@ const Header = () => {
     const params = new URLSearchParams(searchParams);
     params.set("category", category.toLowerCase());
     navigate(`/productos?${params.toString()}`);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   return (
@@ -58,53 +65,102 @@ const Header = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-2 md:gap-3">
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            {/* Favoritos y Carrito */}
+            <Button
+              variant="ghost"
+              size="icon"
               className="hidden sm:inline-flex"
-              onClick={() => navigate('/perfil?tab=favorites')}
+              onClick={() => navigate("/perfil?tab=favorites")}
             >
               <Heart className="h-5 w-5" />
             </Button>
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="icon"
-              onClick={() => navigate('/perfil?tab=cart')}
+              onClick={() => navigate("/perfil?tab=cart")}
             >
               <ShoppingCart className="h-5 w-5" />
             </Button>
-            <Button 
-              variant="outline" 
-              size="default" 
-              className="hidden md:inline-flex"
-              onClick={() => navigate('/login')}
-            >
-              Iniciar Sesión
-            </Button>
-            <Button 
-              variant="hero" 
-              size="default" 
-              className="hidden md:inline-flex"
-              onClick={() => navigate('/registro')}
-            >
-              Registrarse
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="md:hidden"
-              onClick={() => navigate('/login')}
-            >
-              Iniciar Sesión
-            </Button>
-            <Button 
-              variant="hero" 
-              size="sm" 
-              className="md:hidden"
-              onClick={() => navigate('/registro')}
-            >
-              Registrarse
-            </Button>
+
+            {/* === USUARIO LOGUEADO === */}
+            {user ? (
+              <>
+                {/* Desktop */}
+                <div className="hidden md:flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => navigate("/perfil")}
+                    className="flex items-center gap-1.5 font-medium hover:bg-accent"
+                  >
+                    <User className="h-4 w-4" />
+                    Hola, {user.username}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleLogout}
+                    className="flex items-center gap-1"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    <span className="hidden lg:inline">Salir</span>
+                  </Button>
+                </div>
+
+                {/* Mobile */}
+                <div className="md:hidden flex items-center gap-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => navigate("/perfil")}
+                    className="text-xs font-medium"
+                  >
+                    {user.username}
+                  </Button>
+                  <Button variant="outline" size="icon" onClick={handleLogout}>
+                    <LogOut className="h-4 w-4" />
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Desktop */}
+                <Button
+                  variant="outline"
+                  size="default"
+                  className="hidden md:inline-flex"
+                  onClick={() => navigate("/login")}
+                >
+                  Iniciar Sesión
+                </Button>
+                <Button
+                  variant="hero"
+                  size="default"
+                  className="hidden md:inline-flex"
+                  onClick={() => navigate("/registro")}
+                >
+                  Registrarse
+                </Button>
+
+                {/* Mobile */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="md:hidden"
+                  onClick={() => navigate("/login")}
+                >
+                  Iniciar Sesión
+                </Button>
+                <Button
+                  variant="hero"
+                  size="sm"
+                  className="md:hidden"
+                  onClick={() => navigate("/registro")}
+                >
+                  Registrarse
+                </Button>
+              </>
+            )}
           </div>
         </div>
 
@@ -112,15 +168,16 @@ const Header = () => {
         <nav className="hidden border-t md:block">
           <ul className="flex items-center justify-center gap-8 py-3">
             {categories.map((category) => {
-              const isActive = searchParams.get("category")?.toLowerCase() === category.toLowerCase() || 
-                              (!searchParams.get("category") && category === "Todo");
+              const isActive =
+                searchParams.get("category")?.toLowerCase() === category.toLowerCase() ||
+                (!searchParams.get("category") && category === "Todo");
               return (
                 <li key={category}>
                   <button
                     onClick={() => handleCategoryClick(category)}
                     className={`text-sm font-medium transition-smooth ${
-                      isActive 
-                        ? "text-verde border-b-2 border-verde pb-0.5" 
+                      isActive
+                        ? "text-verde border-b-2 border-verde pb-0.5"
                         : "text-foreground hover:text-verde"
                     }`}
                   >
