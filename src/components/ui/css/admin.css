@@ -1,0 +1,481 @@
+/* src/components/Admin/Admin.css */
+.admin-page {
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.admin-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Mejorado con verde claro */
+.admin-header {
+  text-align: center;
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><circle cx="50" cy="50" r="2" fill="white"/></svg>') repeat;
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.admin-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.8em;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.admin-header p {
+  margin: 0 0 30px 0;
+  opacity: 0.9;
+  font-size: 1.2em;
+  font-weight: 400;
+}
+
+.header-stats {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 15px 25px;
+  border-radius: 15px;
+  gap: 20px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 0.9em;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Estadísticas Mejoradas */
+.estadisticas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.estadistica-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid #eaeaea;
+}
+
+.estadistica-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.estadistica-card.total {
+  border-left: 4px solid #10b981;
+}
+
+.estadistica-card.pendientes {
+  border-left: 4px solid #f59e0b;
+}
+
+.estadistica-card.aceptados {
+  border-left: 4px solid #10b981;
+}
+
+.estadistica-icon {
+  font-size: 2.5em;
+  opacity: 0.8;
+}
+
+.estadistica-content h3 {
+  margin: 0 0 8px 0;
+  color: #666;
+  font-size: 0.95em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.estadistica-content .numero {
+  font-size: 2.8em;
+  font-weight: 700;
+  color: #333;
+  line-height: 1;
+}
+
+.estadistica-card.pendientes .numero {
+  color: #f59e0b;
+}
+
+.estadistica-card.aceptados .numero {
+  color: #10b981;
+}
+
+/* Sección de Pedidos */
+.pedidos-section {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eaeaea;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.section-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+.filtros {
+  display: flex;
+  gap: 10px;
+}
+
+.filtro-btn {
+  padding: 8px 16px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+  color: #333;
+}
+
+.filtro-btn.active,
+.filtro-btn:hover {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+/* Estados Vacío */
+.sin-pedidos {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-state {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.empty-icon {
+  font-size: 4em;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  margin: 0 0 10px 0;
+  color: #666;
+  font-size: 1.3em;
+}
+
+.empty-state p {
+  margin: 0;
+  color: #999;
+}
+
+/* Grid de Pedidos */
+.pedidos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 24px;
+}
+
+.pedido-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eaeaea;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.pedido-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.pedido-card.aceptado {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-color: #10b981;
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.pedido-info-principal h3 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.pedido-fecha {
+  color: #888;
+  font-size: 0.85em;
+}
+
+.estado-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.estado-pendiente {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.estado-aceptado {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+/* Contenido del Pedido */
+.pedido-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cliente-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.info-label {
+  color: #666;
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+.info-value {
+  color: #333;
+  font-weight: 600;
+}
+
+.info-value.producto {
+  color: #10b981;
+  background: #f0fdf4;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.9em;
+}
+
+/* Botones Mejorados */
+.pedido-acciones {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.btn-eliminar {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  box-shadow: 0 2px 10px rgba(239, 68, 68, 0.3);
+}
+
+.btn-eliminar:hover:not(:disabled) {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+.btn-aceptar {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+}
+
+.btn-aceptar:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.btn:disabled {
+  background: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-icon {
+  font-size: 1.1em;
+}
+
+.btn-text {
+  font-size: 0.9em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 10px;
+  }
+  
+  .admin-header {
+    padding: 30px 20px;
+    margin: 15px 0 30px;
+  }
+  
+  .admin-header h1 {
+    font-size: 2.2em;
+  }
+  
+  .header-stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .stat-divider {
+    width: 60px;
+    height: 1px;
+  }
+  
+  .estadisticas-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+  
+  .filtros {
+    justify-content: center;
+  }
+  
+  .pedidos-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pedido-acciones {
+    flex-direction: column;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-header h1 {
+    font-size: 1.8em;
+  }
+  
+  .pedidos-section {
+    padding: 20px 15px;
+  }
+  
+  .pedido-card {
+    padding: 20px;
+  }
+  
+  .estadistica-card {
+    padding: 20px;
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .estadistica-icon {
+    font-size: 2em;
+  }
+}
