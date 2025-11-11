@@ -1,6 +1,6 @@
 // src/components/Admin/Admin.jsx
 import React, { useState } from 'react';
-import './Admin.css'; // Ruta corregida
+import '../components/ui/css/admin.css'
 import Header from "@/components/Header"; 
 import Footer from "@/components/Footer";
 
